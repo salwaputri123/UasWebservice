@@ -1,0 +1,196 @@
+openapi: 3.0.0
+info:
+  title: UasWebservice
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+paths:
+  /regis:
+    post:
+      tags:
+        - default
+      summary: MahasiswaRegistration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: salwa@gmail.com
+                password: sal123
+                nama: salwa
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /login:
+    post:
+      tags:
+        - default
+      summary: MahasiswaLogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                username: salwa@gmail.com
+                password: sal123
+                nama: salwa
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /matakuliah:
+    get:
+      tags:
+        - default
+      summary: Matakuliah
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - default
+      summary: MatakuliahPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                nama_matakuliah: algoritma
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /matakuliah/{id}:
+    put:
+      tags:
+        - default
+      summary: MatakuliahUpdate
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                nama_matakuliah: pemrograman
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - default
+      summary: MatakuliahDelete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /pendaftaran:
+    get:
+      tags:
+        - default
+      summary: Pendaftaran
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - default
+      summary: PendaftaranPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                id_mahasiswa: 123
+                id_matakuliah: 456
+                nilai: A
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /pendaftaran/{id}:
+    put:
+      tags:
+        - default
+      summary: PendaftaranUpdate
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                id_mahasiswa: 123
+                id_matakuliah: 456
+                nilai: B
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - default
+      summary: PendaftaranDelete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
