@@ -3,7 +3,7 @@ info:
   title: UasWebservice
   version: 1.0.0
 servers:
-  - url: https://130.162.195.228/mhs714220026
+  - url: https://130.162.195.228/mhs714220026/
 components:
   securitySchemes:
     bearerAuth:
