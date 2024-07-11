@@ -1,6 +1,7 @@
 package nilai
 
 import (
+    "database/sql"
     "encoding/json"
     "log"
     "net/http"
@@ -36,6 +37,35 @@ func GetNilai(w http.ResponseWriter, r *http.Request) {
     }
     w.Header().Set("Content-Type", "application/json")
     json.NewEncoder(w).Encode(nilailist)
+}
+
+func GetNilaiByID(w http.ResponseWriter, r *http.Request) {
+    vars := mux.Vars(r)
+    idStr, ok := vars["id"]
+    if !ok {
+        http.Error(w, "ID not provided", http.StatusBadRequest)
+        return
+    }
+    id, err := strconv.Atoi(idStr)
+    if err != nil {
+        http.Error(w, "Invalid ID", http.StatusBadRequest)
+        return
+    }
+
+    var nilai nilai.Nilai
+    query := "SELECT id_nilai, id_mahasiswa, id_matakuliah, nilai FROM nilai WHERE id_nilai = ?"
+    err = database.DB.QueryRow(query, id).Scan(&nilai.IDNilai, &nilai.IDMahasiswa, &nilai.IDMatakuliah, &nilai.Nilai)
+    if err != nil {
+        if err == sql.ErrNoRows {
+            http.Error(w, "Nilai not found", http.StatusNotFound)
+        } else {
+            http.Error(w, err.Error(), http.StatusInternalServerError)
+        }
+        return
+    }
+
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(nilai)
 }
 
 func PostNilai(w http.ResponseWriter, r *http.Request) {
